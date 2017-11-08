@@ -18,18 +18,16 @@ gulp.task('clean', callback => {
 });
 
 gulp.task('compile', ['clean'], () => {
-  return (
-    gulp
-      .src('src/**/*.js')
-      .pipe(plumber())
-      .pipe(
-        babel({
-          presets: ['es2015']
-        })
-      )
-      .pipe(concat(`${LIB_NAME}.js`))
-      .pipe(gulp.dest('dist'))
-  );
+  return gulp
+    .src('src/**/*.js')
+    .pipe(plumber())
+    .pipe(
+      babel({
+        presets: ['es2015']
+      })
+    )
+    .pipe(concat(`${LIB_NAME}.js`))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('minify', ['compile'], () => {
@@ -39,7 +37,7 @@ gulp.task('minify', ['compile'], () => {
     .pipe(uglify())
     .pipe(
       rename({
-        basename: pkg.name,
+        basename: LIB_NAME,
         extname: '.min.js'
       })
     )

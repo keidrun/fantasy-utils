@@ -3,7 +3,7 @@ Small utils for Functional Programming.
 
 ## Description
 
-This provides small utilities to complement the lack of a functional library like ramda or lodash. It includes both pure and impure functions and fullfill a easy point-free style programming. Of cource, all utilities are curried.
+This provides small utilities to complement the lack of a functional library like  [ramda](https://github.com/ramda/ramda "ramda") or  [lodash](https://github.com/lodash/lodash "lodash"). It includes both pure and impure functions and fullfill a easy point-free style programming. Of cource, all utilities are curried.
 
 An example is below.
 
