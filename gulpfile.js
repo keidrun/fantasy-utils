@@ -7,6 +7,7 @@ const babel = require('gulp-babel');
 const plumber = require('gulp-plumber');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
+const concat = require('gulp-concat');
 const mocha = require('gulp-mocha');
 const istanbul = require('gulp-istanbul');
 
@@ -17,21 +18,18 @@ gulp.task('clean', callback => {
 });
 
 gulp.task('compile', ['clean'], () => {
-  return gulp
-    .src('src/**/*.js')
-    .pipe(plumber())
-    .pipe(
-      babel({
-        presets: ['es2015']
-      })
-    )
-    .pipe(
-      rename({
-        basename: LIB_NAME,
-        extname: '.js'
-      })
-    )
-    .pipe(gulp.dest('dist'));
+  return (
+    gulp
+      .src('src/**/*.js')
+      .pipe(plumber())
+      .pipe(
+        babel({
+          presets: ['es2015']
+        })
+      )
+      .pipe(concat(`${LIB_NAME}.js`))
+      .pipe(gulp.dest('dist'))
+  );
 });
 
 gulp.task('minify', ['compile'], () => {
