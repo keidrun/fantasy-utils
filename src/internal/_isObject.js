@@ -1,5 +1,4 @@
 const _isObject = x => {
-  return x != null && typeof x === 'object';
+  return Object.prototype.toString.call(x) === '[object Object]';
 };
-
 module.exports = _isObject;

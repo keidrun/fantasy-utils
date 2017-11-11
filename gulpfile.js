@@ -1,25 +1,29 @@
-const fs = require('fs');
-const pkg = JSON.parse(fs.readFileSync('./package.json'));
-const rimraf = require('rimraf');
-const sequence = require('run-sequence');
-const gulp = require('gulp');
-const babel = require('gulp-babel');
-const plumber = require('gulp-plumber');
-const uglify = require('gulp-uglify');
-const rename = require('gulp-rename');
-const concat = require('gulp-concat');
-const mocha = require('gulp-mocha');
-const istanbul = require('gulp-istanbul');
+const fs = require('fs'),
+  pkg = JSON.parse(fs.readFileSync('./package.json')),
+  rimraf = require('rimraf'),
+  sequence = require('run-sequence'),
+  gulp = require('gulp'),
+  babel = require('gulp-babel'),
+  plumber = require('gulp-plumber'),
+  uglify = require('gulp-uglify'),
+  rename = require('gulp-rename'),
+  concat = require('gulp-concat'),
+  mocha = require('gulp-mocha'),
+  istanbul = require('gulp-istanbul');
 
 const LIB_NAME = pkg.name;
 
+const DIST_PATH = 'dist',
+  SRC_PATH = 'src/**/*.js',
+  TEST_PATH = 'test/**/*.js';
+
 gulp.task('clean', callback => {
-  return rimraf('./dist', callback);
+  return rimraf(DIST_PATH, callback);
 });
 
 gulp.task('compile', ['clean'], () => {
   return gulp
-    .src('src/**/*.js')
+    .src(SRC_PATH)
     .pipe(plumber())
     .pipe(
       babel({
@@ -27,12 +31,12 @@ gulp.task('compile', ['clean'], () => {
       })
     )
     .pipe(concat(`${LIB_NAME}.js`))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest(DIST_PATH));
 });
 
 gulp.task('minify', ['compile'], () => {
   return gulp
-    .src(`dist/${LIB_NAME}.js`)
+    .src(`${DIST_PATH}/${LIB_NAME}.js`)
     .pipe(plumber())
     .pipe(uglify())
     .pipe(
@@ -41,12 +45,12 @@ gulp.task('minify', ['compile'], () => {
         extname: '.min.js'
       })
     )
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest(DIST_PATH));
 });
 
 gulp.task('pre-test', function() {
   return gulp
-    .src('src/**/*.js')
+    .src(SRC_PATH)
     .pipe(plumber())
     .pipe(istanbul())
     .pipe(istanbul.hookRequire());
@@ -54,7 +58,7 @@ gulp.task('pre-test', function() {
 
 gulp.task('test', ['pre-test'], function() {
   return gulp
-    .src('test/*.js')
+    .src(TEST_PATH)
     .pipe(plumber())
     .pipe(mocha())
     .pipe(istanbul.writeReports())
@@ -66,7 +70,8 @@ gulp.task('build', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch('src/**/*.js', ['build']);
+  gulp.watch(SRC_PATH, ['build']);
+  gulp.watch(TEST_PATH, ['build']);
 });
 
 gulp.task('default', callback => {

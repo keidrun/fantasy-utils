@@ -1,5 +1,7 @@
+const _isNumber = require('./internal/_isNumber');
+
 const numberToString = num => {
-  return num.toString(10);
+  return _isNumber(num) ? num.toString(10) : null;
 };
 
 module.exports = numberToString;

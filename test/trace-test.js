@@ -14,8 +14,12 @@ describe('trace-test', () => {
     expect(trace('trace', 777)).to.eql(777);
   });
 
-  it('should return boolean for argument boolean', () => {
+  it('should return true for argument true', () => {
     expect(trace('trace', true)).to.eql(true);
+  });
+
+  it('should return false for argument false', () => {
+    expect(trace('trace', false)).to.eql(false);
   });
 
   it('should return empty for argument empty', () => {
@@ -30,7 +34,27 @@ describe('trace-test', () => {
     expect(trace('trace', null)).to.eql(null);
   });
 
-  it('should return function for argument object', () => {
-    expect(typeof trace('trace', { name: 'Keid' })).to.eql('function');
+  it('should return object for argument object', () => {
+    expect(
+      Object.prototype.toString.call(trace('trace', { name: 'Keid' }))
+    ).to.eql('[object Object]');
+  });
+
+  it('should return name property for argument object.name', () => {
+    expect(trace('trace', { name: 'Keid' }).name).to.eql('Keid');
+  });
+
+  it('should return array for argument array', () => {
+    const call = trace('trace', [1, 2, 3]);
+    expect(call.length).to.eql(3);
+    expect(call[0]).to.eql(1);
+    expect(call[1]).to.eql(2);
+    expect(call[2]).to.eql(3);
+  });
+
+  it('should return empty array for argument empty array', () => {
+    const call = trace('trace', []);
+    expect(call.length).to.eql(0);
+    expect(call[0]).to.eql(undefined);
   });
 });
