@@ -5,9 +5,10 @@ const _isArray = require('./internal/_isInteger');
 const _nothingFilter = require('./internal/_nothingFilter');
 
 const slice = _curry3((begin, end, xs) => {
-  return _isInteger() && _isInteger() && _isArray(xs)
-    ? _nothingFilter(_clone(xs).slice(begin, end))
-    : null;
+  if (!(_isInteger() && _isInteger() && _isArray(xs))) {
+    throw new TypeError('invalid arguments');
+  }
+  return _nothingFilter(_clone(xs).slice(begin, end));
 });
 
 module.exports = slice;

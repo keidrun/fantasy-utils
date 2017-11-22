@@ -5,9 +5,10 @@ const _isArray = require('./internal/_isArray');
 const _nothingFilter = require('./internal/_nothingFilter');
 
 const find = _curry2((callback, xs) => {
-  return _isFunction(callback) && _isArray(xs)
-    ? _nothingFilter(_clone(xs).find(callback))
-    : null;
+  if (!(_isFunction(callback) && _isArray(xs))) {
+    throw new TypeError('invalid arguments');
+  }
+  return _nothingFilter(_clone(xs).find(callback));
 });
 
 module.exports = find;

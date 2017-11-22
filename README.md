@@ -1,9 +1,14 @@
 # fantasy-utils [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
+
 Small utils for Functional Programming.
 
 ## Description
 
-This provides small utilities to complement the lack of a functional library like  [ramda](https://github.com/ramda/ramda "ramda") or  [lodash](https://github.com/lodash/lodash "lodash"). It includes both pure and impure functions and fullfill an easy point-free style programming. Of cource, all utilities are curried.
+This provides small utilities to complement the lack of a functional library
+like [ramda](https://github.com/ramda/ramda "ramda") or
+[lodash](https://github.com/lodash/lodash "lodash"). It includes both pure and
+impure functions and fullfills an easy point-free style programming. Of course,
+all utilities are curried.
 
 An example is below.
 
@@ -20,29 +25,43 @@ const dashrize = R.compose(
 );
 ```
 
+Other example is below.
+
+```javascript
+const R = require('ramda');
+const F = require('fantasy-utils');
+
+// Promise way
+const calc = R.compose(
+  F.promiseReduce((x, y) => x + y, 0),
+  F.promiseMap(x => x * 3),
+  F.promiseFilter(x => x % 2 === 0)
+);
+
+calc(promiseOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+  .then(console.log)
+  .catch(console.error);
+```
+
 ## Implementations
 
 ### Pure functions
 
-- map :: (Function, Array) -> Array
-- find :: (Function, Array) -> Any
-- filter :: (Function, Array) -> Array
-- reduce :: (Function, Any, Array) -> Any
-- concat :: (Array, Array) -> Array
-- slice :: (Integer, Integer, Array) -> Array
-- splice :: (Integer, Array) -> Array
-- toString :: Array -> String
-- numberToString :: Number -> String
+* promiseMap :: (Function, Promise Array) -> Promise Array
+* promiseFind :: (Function, Promise Array) -> Promise Any
+* promiseFilter :: (Function, Promise Array) -> Array
+* promiseReduce :: (Function, Any, Promise Array) -> Promise Any
+* promiseConcat :: (Array, Promise Array) -> Promise Array
+* promiseSlice :: (Integer, Integer, Promise Array) -> Promise Array
+* promiseSplice :: (Integer, Promise Array) -> Promise Array
 
 ### Impure functions
 
-- trace :: (String, Any) -> Any
+* trace :: (String, Any) -> Any
 
 [npm-url]: https://npmjs.org/package/fantasy-utils
 [npm-image]: https://badge.fury.io/js/fantasy-utils.svg
-
 [travis-url]: http://travis-ci.org/keidrun/fantasy-utils
 [travis-image]: https://secure.travis-ci.org/keidrun/fantasy-utils.svg?branch=master
-
 [depstat-url]: https://david-dm.org/keidrun/fantasy-utils
 [depstat-image]: https://david-dm.org/keidrun/fantasy-utils.svg

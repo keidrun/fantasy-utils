@@ -5,9 +5,10 @@ const _isArray = require('./internal/_isArray');
 const _nothingFilter = require('./internal/_nothingFilter');
 
 const splice = _curry3((index, deleteCount, xs) => {
-  return _isInteger(index) && _isInteger(deleteCount) && _isArray(xs)
-    ? _nothingFilter(_clone(xs).splice(index, deleteCount))
-    : null;
+  if (!(_isInteger(index) && _isInteger(deleteCount) && _isArray(xs))) {
+    throw new TypeError('invalid arguments');
+  }
+  return _nothingFilter(_clone(xs).splice(index, deleteCount));
 });
 
 module.exports = splice;

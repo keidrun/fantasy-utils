@@ -2,7 +2,10 @@ const _isNumber = require('./internal/_isNumber');
 const _nothingFilter = require('./internal/_nothingFilter');
 
 const numberToString = num => {
-  return _isNumber(num) ? _nothingFilter(num.toString(10)) : null;
+  if (!_isNumber(num)) {
+    throw new TypeError('invalid arguments');
+  }
+  return _nothingFilter(num.toString(10));
 };
 
 module.exports = numberToString;

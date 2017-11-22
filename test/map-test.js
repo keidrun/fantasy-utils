@@ -36,23 +36,31 @@ describe('map-test', () => {
     expect(call[0]).to.eql(undefined);
   });
 
-  it('should return null for argument add1() and null', () => {
-    const call = map(x => x + 1, null);
-    expect(call).to.eql(null);
+  it('should return TypeError for argument add1() and null', () => {
+    const call = () => {
+      return map(x => x + 1, null);
+    };
+    expect(call).to.throw(TypeError, 'invalid arguments');
   });
 
-  it('should return null for argument null and [1,2,3]]', () => {
-    const call = map(null, [1, 2, 3]);
-    expect(call).to.eql(null);
+  it('should return TypeError for argument null and [1,2,3]]', () => {
+    const call = () => {
+      return map(null, [1, 2, 3]);
+    };
+    expect(call).to.throw(TypeError, 'invalid arguments');
   });
 
-  it('should return null for argument number and [1, 2, 3]', () => {
-    const call = map(777, [1, 2, 3]);
-    expect(call).to.eql(null);
+  it('should return TypeError for argument number and [1, 2, 3]', () => {
+    const call = () => {
+      return map(777, [1, 2, 3]);
+    };
+    expect(call).to.throw(TypeError, 'invalid arguments');
   });
 
-  it('should return null for argument add1() and number]', () => {
-    const call = map(x => x + 1, 777);
-    expect(call).to.eql(null);
+  it('should return TypeError for argument add1() and number]', () => {
+    const call = () => {
+      return map(x => x + 1, 777);
+    };
+    expect(call).to.throw(TypeError, 'invalid arguments');
   });
 });
