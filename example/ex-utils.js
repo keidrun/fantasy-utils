@@ -8,7 +8,6 @@ const dashrize = R.compose(
   R.split(' '),
   R.replace(/\s{2,}/gi, '')
 );
-
 console.log('result:', dashrize('Do you know our world is small?'));
 //=> debug: [ 'Do', 'you', 'know', 'our', 'world', 'is', 'small?' ]
 //=> result: do-you-know-our-world-is-small?

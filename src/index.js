@@ -10,6 +10,7 @@ module.exports.splice = require('./splice');
 module.exports.toString = require('./toString');
 module.exports.numberToString = require('./numberToString');
 module.exports.promiseOf = require('./promiseOf');
+module.exports.promiseBind = require('./promiseBind');
 module.exports.promiseMap = require('./promiseMap');
 module.exports.promiseReduce = require('./promiseReduce');
 module.exports.promiseFilter = require('./promiseFilter');

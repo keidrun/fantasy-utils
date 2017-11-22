@@ -23,25 +23,35 @@ const dashrize = R.compose(
   R.split(' '),
   R.replace(/\s{2,}/gi, '')
 );
-
 console.log('result:', dashrize('Do you know our world is small?'));
 //=> debug: [ 'Do', 'you', 'know', 'our', 'world', 'is', 'small?' ]
 //=> result: do-you-know-our-world-is-small?
 ```
 
-Other example is below.
+Other examples is below.
 
 ```javascript
 const R = require('ramda');
 const F = require('fantasy-utils');
 
 // Promise way
+const promiseDashrize = R.compose(
+  F.promiseBind(R.join('-')),
+  F.promiseBind(R.map(R.toLower)),
+  F.promiseBind(R.split(' ')),
+  F.promiseBind(R.replace(/\s{2,}/gi, ''))
+);
+promiseDashrize(F.promiseOf('Do you know our limit is sky?'))
+  .then(console.log)
+  .catch(console.error);
+//=> do-you-know-our-limit-is-sky?
+
+// Promise point-free style
 const calc = R.compose(
   F.promiseReduce((x, y) => x + y, 0),
   F.promiseMap(x => x * 3),
   F.promiseFilter(x => x % 2 === 0)
 );
-
 calc(F.promiseOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
   .then(console.log)
   .catch(console.error);
@@ -53,6 +63,7 @@ calc(F.promiseOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 ### Pure functions
 
 * promiseOf :: Any -> Promise Any
+* promiseBind :: (Function, Promise Any) -> Promise Any
 * promiseMap :: (Function, Promise Array) -> Promise Array
 * promiseFind :: (Function, Promise Array) -> Promise Any
 * promiseFilter :: (Function, Promise Array) -> Promise Array
