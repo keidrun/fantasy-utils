@@ -10,3 +10,5 @@ const dashrize = R.compose(
 );
 
 console.log('result:', dashrize('Do you know our world is small?'));
+//=> debug: [ 'Do', 'you', 'know', 'our', 'world', 'is', 'small?' ]
+//=> result: do-you-know-our-world-is-small?

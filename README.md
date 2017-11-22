@@ -23,6 +23,10 @@ const dashrize = R.compose(
   R.split(' '),
   R.replace(/\s{2,}/gi, '')
 );
+
+console.log('result:', dashrize('Do you know our world is small?'));
+//=> debug: [ 'Do', 'you', 'know', 'our', 'world', 'is', 'small?' ]
+//=> result: do-you-know-our-world-is-small?
 ```
 
 Other example is below.
@@ -38,18 +42,20 @@ const calc = R.compose(
   F.promiseFilter(x => x % 2 === 0)
 );
 
-calc(promiseOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+calc(F.promiseOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
   .then(console.log)
   .catch(console.error);
+//=> 90
 ```
 
 ## Implementations
 
 ### Pure functions
 
+* promiseOf :: Any -> Promise Any
 * promiseMap :: (Function, Promise Array) -> Promise Array
 * promiseFind :: (Function, Promise Array) -> Promise Any
-* promiseFilter :: (Function, Promise Array) -> Array
+* promiseFilter :: (Function, Promise Array) -> Promise Array
 * promiseReduce :: (Function, Any, Promise Array) -> Promise Any
 * promiseConcat :: (Array, Promise Array) -> Promise Array
 * promiseSlice :: (Integer, Integer, Promise Array) -> Promise Array
