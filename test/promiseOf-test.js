@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const { shouldFulfilled, shouldRejected } = require('./test-helpers');
 const promiseOf = require('../src/promiseOf');
 
 describe('promiseOfmap-test', () => {
@@ -6,10 +7,10 @@ describe('promiseOfmap-test', () => {
     expect(true).to.be.true;
   });
 
-  it('should return Promise for argument number', () => {
+  it('should be fullfilled and return Promise(11) for argument 11', () => {
     const call = promiseOf(11);
     expect(Object.prototype.toString.call(call)).to.eql('[object Promise]');
-    return call.then(value => {
+    return shouldFulfilled(call).then(value => {
       expect(value).to.eql(11);
     });
   });

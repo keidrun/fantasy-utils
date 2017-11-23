@@ -761,9 +761,9 @@ fancy-log@^1.1.0:
     chalk "^1.1.1"
     time-stamp "^1.0.0"
 
-fantasy-utils@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/fantasy-utils/-/fantasy-utils-0.0.6.tgz#90892069cccd5204876ce89c02fc61f6f5230b61"
+fantasy-utils@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/fantasy-utils/-/fantasy-utils-0.0.7.tgz#0c810ffdbeba8f4bc85f3b761f7f0e0b5bc935c6"
 
 fast-levenshtein@~2.0.4:
   version "2.0.6"

@@ -28,7 +28,7 @@ console.log('result:', dashrize('Do you know our world is small?'));
 //=> result: do-you-know-our-world-is-small?
 ```
 
-Other examples is below.
+Other examples are below.
 
 ```javascript
 const R = require('ramda');
