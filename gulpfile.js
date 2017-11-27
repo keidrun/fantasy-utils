@@ -9,7 +9,8 @@ const fs = require('fs'),
   rename = require('gulp-rename'),
   concat = require('gulp-concat'),
   mocha = require('gulp-mocha'),
-  istanbul = require('gulp-istanbul');
+  istanbul = require('gulp-istanbul'),
+  eslint = require('gulp-eslint');
 
 const LIB_NAME = pkg.name;
 
@@ -48,7 +49,19 @@ gulp.task('minify', ['compile'], () => {
     .pipe(gulp.dest(DIST_PATH));
 });
 
-gulp.task('pre-test', function() {
+gulp.task('lint', () => {
+  return gulp
+    .src(SRC_PATH)
+    .pipe(plumber())
+    .pipe(eslint({
+      useEslintrc: true
+    }))
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
+    .pipe(plumber.stop());
+});
+
+gulp.task('pre-test', ['lint'], () => {
   return gulp
     .src(SRC_PATH)
     .pipe(plumber())
@@ -56,7 +69,7 @@ gulp.task('pre-test', function() {
     .pipe(istanbul.hookRequire());
 });
 
-gulp.task('test', ['pre-test'], function() {
+gulp.task('test', ['pre-test'], () => {
   return gulp
     .src(TEST_PATH)
     .pipe(plumber())
